@@ -1,4 +1,4 @@
-package com.company;
+package com.company.initialRules;
 
 public abstract class State {
 
@@ -7,9 +7,13 @@ public abstract class State {
 
 	State parent; //ссылка на номер вершины
 
+	//возвращаем "вес" состояния как сумму тура и качества пятнашки. можно изменить
+	//и задать другие правила. поиграться со знаками
 	public int getFunc() {
 		return tour + quality;
 	}
+
+
 	public int getTour() {
 		return tour;
 	}
@@ -18,6 +22,7 @@ public abstract class State {
 		return quality;
 	}
 
+	//вовзращает предыдущее состояние (из какой вершины вышла)
 	public State getParent() {
 		return parent;
 	}
@@ -32,10 +37,5 @@ public abstract class State {
 
 	public void setParent(State parent) {
 		this.parent = parent;
-	}
-
-	@Override
-	public boolean equals(State obj) {
-		return super.equals(obj);
 	}
 }

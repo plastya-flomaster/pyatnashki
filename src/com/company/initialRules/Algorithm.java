@@ -1,4 +1,7 @@
-package com.company;
+package com.company.initialRules;
+
+import com.company.initialRules.Rules;
+import com.company.initialRules.State;
 
 import java.util.*;
 
@@ -21,8 +24,8 @@ public class Algorithm<TState extends State, TRules extends Rules<TState>> {
 	 * @return последовательность состояний от заданного до терминального.
 	 */
 	public Collection<State> search(TState startState) {
-		LinkedList<Integer> close = new LinkedList<Integer>();
-		LinkedList<TState> open = new LinkedList<TState>();
+		LinkedList<Integer> close = new LinkedList<>();
+		LinkedList<TState> open = new LinkedList<>();
 		open.add(startState);
 		startState.setTour(0);
 		startState.setQuality(rules.getQuality(startState));
@@ -68,7 +71,7 @@ public class Algorithm<TState extends State, TRules extends Rules<TState>> {
 	 * @param rules правила, в соответствии с которыми будет производиться поиск
 	 *              терминального состояния.
 	 */
-	public createRules(TRules rules) {
+	public Algorithm(TRules rules) {
 		if (rules == null) {
 			throw new IllegalArgumentException("Правила не могут быть пустыми");
 		}
@@ -102,7 +105,7 @@ public class Algorithm<TState extends State, TRules extends Rules<TState>> {
 	 * состояния до конечного.
 	 */
 	private Collection<State> completeSolution(TState terminate) {
-		LinkedList<State> path = new LinkedList<State>();
+		LinkedList<State> path = new LinkedList<>();
 		State c = terminate;
 		while (c != null) {
 			path.addFirst(c);

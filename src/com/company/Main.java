@@ -1,8 +1,11 @@
 package com.company;
 
+import com.company.initialRules.Rules;
+import com.company.initialRules.State;
+
 import java.util.*;
 
-public class Algorithm<TState extends State, TRules extends Rules<TState>> {
+public class Main<TState extends State, TRules extends Rules<TState>> {
 
 	/**
 	 * Функция поиска правильной пятнашки.
@@ -11,8 +14,8 @@ public class Algorithm<TState extends State, TRules extends Rules<TState>> {
 	 * @return возвращает правильный маршрут до пятнашки
 	 */
 	public Collection<State> search(TState startState) {
-		LinkedList<TState> close = new LinkedList<TState>();
-		LinkedList<TState> open = new LinkedList<TState>();
+		LinkedList<TState> close = new LinkedList<>();
+		LinkedList<TState> open = new LinkedList<>();
 
 		startState.setTour(0); //начнем с нулевого тура
 		startState.setQuality(rules.getQuality(startState));
@@ -23,7 +26,8 @@ public class Algorithm<TState extends State, TRules extends Rules<TState>> {
 			TState x = getStateWithMinFunc(open);
 		}
 		return;
-	},
+	}
+
 	public algorithm(TRules rules){
 		if(rules == null) {
 			throw new IllegalArgumentException("Нельзя играть без правил");
