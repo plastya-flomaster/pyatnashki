@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.*;
 
-public class Main<TState extends State, TRules extends Rules<TState>> {
+public class Algorithm<TState extends State, TRules extends Rules<TState>> {
 
 	/**
 	 * Функция поиска правильной пятнашки.
@@ -24,6 +24,12 @@ public class Main<TState extends State, TRules extends Rules<TState>> {
 		}
 		return;
 	},
+	public algorithm(TRules rules){
+		if(rules == null) {
+			throw new IllegalArgumentException("Нельзя играть без правил");
+		}
+		this.rules = rules;
+	}
 private TState getStateWithMinFunc(Collection<TState> open){
 		TState res = null;
 		int min = Integer.MAX_VALUE;
