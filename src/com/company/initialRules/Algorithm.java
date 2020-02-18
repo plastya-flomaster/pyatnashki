@@ -1,32 +1,19 @@
 package com.company.initialRules;
 
-import com.company.initialRules.Rules;
-import com.company.initialRules.State;
 
 import java.util.*;
 
-
-
-/**
- * Реализует алгоритм поиска решения А*.
- */
 public class Algorithm<TState extends State, TRules extends Rules<TState>> {
 
 	private TRules rules;
 	private int closedStates = 0;
 
-
-	/**
-	 * Применяет алгоритм А* для поиска кратчайшего пути до терминального
-	 * состоянияот указанного.
-	 *
-	 * @param startState - начальное состояние.
-	 * @return последовательность состояний от заданного до терминального.
-	 */
 	public Collection<State> search(TState startState) {
 		LinkedList<Integer> close = new LinkedList<>();
 		LinkedList<TState> open = new LinkedList<>();
+		
 		open.add(startState);
+		
 		startState.setTour(0);
 		startState.setQuality(rules.getQuality(startState));
 
@@ -43,18 +30,18 @@ public class Algorithm<TState extends State, TRules extends Rules<TState>> {
 				if (close.contains(neighbor.hashCode())) {
 					continue;
 				}
-				int g = x.getTour() + rules.getDistance(x, neighbor);
-				boolean isGBetter;
+				int Tour = x.getTour() + rules.getDistance(x, neighbor);
+				boolean isTourLess;
 				if (!open.contains(neighbor)) {
 					neighbor.setQuality(rules.getQuality(neighbor));
 					open.add(neighbor);
-					isGBetter = true;
+					isTourLess = true;
 				} else {
-					isGBetter = g < neighbor.getTour();
+					isTourLess = Tour < neighbor.getTour();
 				}
-				if (isGBetter) {
+				if (isTourLess) {
 					neighbor.setParent(x);
-					neighbor.setTour(g);
+					neighbor.setTour(Tour);
 				}
 			}
 		}
@@ -65,12 +52,6 @@ public class Algorithm<TState extends State, TRules extends Rules<TState>> {
 		return closedStates;
 	}
 
-	/**
-	 * Создает объект для поиска терминального состояния по указанным правилам.
-	 *
-	 * @param rules правила, в соответствии с которыми будет производиться поиск
-	 *              терминального состояния.
-	 */
 	public Algorithm(TRules rules) {
 		if (rules == null) {
 			throw new IllegalArgumentException("Правила не могут быть пустыми");
@@ -78,12 +59,7 @@ public class Algorithm<TState extends State, TRules extends Rules<TState>> {
 		this.rules = rules;
 	}
 
-	/**
-	 * Находит вершину в списке open с наименьшим значением веса.
-	 *
-	 * @param open список открытых вершин.
-	 * @return вершину с наименьшим весом.
-	 */
+
 	private TState getStateWithMinF(Collection<TState> open) {
 		TState res = null;
 		int min = Integer.MAX_VALUE;
@@ -96,14 +72,6 @@ public class Algorithm<TState extends State, TRules extends Rules<TState>> {
 		return res;
 	}
 
-	/**
-	 * Составляет последовательность состояний пройденных от начального
-	 * состояния до конечного.
-	 *
-	 * @param terminate найденное конечное состояние.
-	 * @return последовательность состояний пройденных от начального
-	 * состояния до конечного.
-	 */
 	private Collection<State> completeSolution(TState terminate) {
 		LinkedList<State> path = new LinkedList<>();
 		State c = terminate;

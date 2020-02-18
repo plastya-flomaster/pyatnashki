@@ -10,7 +10,7 @@ public abstract class State {
 	//возвращаем "вес" состояния как сумму тура и качества пятнашки. можно изменить
 	//и задать другие правила. поиграться со знаками
 	public int getFunc() {
-		return tour + quality;
+		return (int)Math.round(0.7* tour + 0.3* quality);
 	}
 
 
@@ -18,9 +18,6 @@ public abstract class State {
 		return tour;
 	}
 
-	public int getQuality() {
-		return quality;
-	}
 
 	//вовзращает предыдущее состояние (из какой вершины вышла)
 	public State getParent() {
