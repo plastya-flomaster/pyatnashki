@@ -33,7 +33,7 @@ public class Main {
 		int size = sideSize * sideSize;
 		terminateField = getTerminalState(sideSize, size);
 
-		FifteenRules rules = new FifteenRules2(sideSize, terminateField);
+		FifteenRules rules = new FifteenRules(sideSize, terminateField);
 		FifteenState startState = new FifteenState(null, sideSize);
 
 		if (startField == null) {
@@ -41,7 +41,7 @@ public class Main {
 		}
 		startState.setField(startField);
 
-		Astar<FifteenState, FifteenRules> astar = new Astar<FifteenState, FifteenRules>(
+		Algorithm<FifteenState, FifteenRules> astar = new Algorithm<>(
 			rules);
 		long time = System.currentTimeMillis();
 		Collection<State> res = astar.search(startState);
@@ -151,14 +151,7 @@ public class Main {
 			return;
 		}
 		for (int i = 0; i < args.length; i++) {
-			if (args[i].equals("-h")) {
-				try {
-					showHelp();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				continue;
-			}
+
 			if (args[i].equals("-v")) {
 				isShowStatistic = true;
 				continue;
@@ -177,28 +170,13 @@ public class Main {
 		}
 	}
 
-	private static void showHelp() throws IOException {
-		InputStreamReader strm = new InputStreamReader(
-			Fifteen.class.getResourceAsStream("/help.ru"), "UTF-8");
-		BufferedReader reader = new BufferedReader(strm);
-
-		PrintStream out = new PrintStream(System.out, true);
-
-		String str = null;
-		while ((str = reader.readLine()) != null) {
-			out.println(str);
-		}
-		reader.close();
-		System.exit(0);
-	}
-
 	private static byte[] startField;
 
 	private static byte[] terminateField;
 
 	private static int stepCount = 10;
 
-	private static int sideSize = 4;
+	private static int sideSize = 3;
 
 	private static boolean isReadFromStream = true;
 

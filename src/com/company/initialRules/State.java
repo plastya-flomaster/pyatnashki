@@ -2,10 +2,10 @@ package com.company.initialRules;
 
 public abstract class State {
 
-	int tour; //номер тура
-	int quality; //количество фишек не на своих местах
+	private int tour; //номер тура
+	private int quality; //количество фишек не на своих местах
 
-	State parent; //ссылка на номер вершины
+	private State parent; //ссылка на номер вершины
 
 	//возвращаем "вес" состояния как сумму тура и качества пятнашки. можно изменить
 	//и задать другие правила. поиграться со знаками
@@ -36,6 +36,9 @@ public abstract class State {
 	}
 
 	public void setParent(State parent) {
+		this.parent = parent;
+	}
+	public State(State parent) {
 		this.parent = parent;
 	}
 }

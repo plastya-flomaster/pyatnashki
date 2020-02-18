@@ -2,6 +2,7 @@ package com.company.pyatnashki;
 
 import com.company.initialRules.State;
 
+
 import java.util.Arrays;
 
 /**
@@ -23,14 +24,6 @@ public class FifteenState extends State {
 		return res;
 	}
 
-	/**
-	 * Проверяет, возможно ли привести состояние к терминальному.
-	 *
-	 * @param field
-	 *            состояние игрового поля.
-	 * @return true - если можно привести к терминальному.
-	 *
-	 */
 	public static boolean checkState(byte[] field) {
 		int N = 0;
 		int e = 0;
